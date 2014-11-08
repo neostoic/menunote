@@ -1,0 +1,61 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sp_id: MyString
+  name: MyString
+  description: MyText
+  order_num: 1
+  dairy: false
+  dairy_free: false
+  egg: false
+  egg_free: false
+  fish: false
+  fish-free: false
+  gluten_free: false
+  halal: false
+  kosher: false
+  organic: false
+  peanut: false
+  peanut_free: false
+  shellfish: false
+  shellfish_free: false
+  soy: false
+  soy_free: false
+  spicy: MyString
+  tree_nut: false
+  tree_nut_free: false
+  vegan: false
+  vegetarian: false
+  wheat: false
+  references: 
+  references: 
+
+two:
+  sp_id: MyString
+  name: MyString
+  description: MyText
+  order_num: 1
+  dairy: false
+  dairy_free: false
+  egg: false
+  egg_free: false
+  fish: false
+  fish-free: false
+  gluten_free: false
+  halal: false
+  kosher: false
+  organic: false
+  peanut: false
+  peanut_free: false
+  shellfish: false
+  shellfish_free: false
+  soy: false
+  soy_free: false
+  spicy: MyString
+  tree_nut: false
+  tree_nut_free: false
+  vegan: false
+  vegetarian: false
+  wheat: false
+  references: 
+  references: 

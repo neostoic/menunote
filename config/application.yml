@@ -1,0 +1,19 @@
+# Bing Search API
+bing_search_account_key: 'fbyjdHsODvNB6f+vPp51i0UgnCa5LomL0qrvBC+y/IM'
+
+# Single Platform
+singleplatform_client_id: 'ckgh670qdj56s9f8erhpmfcns'
+singleplatform_signing_key: 'UcSfZQ-VKv61tQ_0D4BV-EjfbCTpqNII0pDiSFIdZko'
+
+# Foursquare
+foursquare_client_id: '5DIR5HUGWU0G2WVWRPQLTIDSD5DMP5PPGZKGXGXZNW0LDGKV'
+foursquare_client_secret: '0PFGOGOBFK0GYSJLPWGVLBVSXEMMWWXZGGK2GMFSBYLQHJR5'
+
+# Yelp
+yelp_consumer_key: 'Qlim-fUiMD-A68J53OUMsg'
+yelp_consumer_secret: 'ZEuq2EfxE8wMwx8mM8sNvRDi89g'
+yelp_token: 'DbIYA44_RwtyY_masW3Aq8eKJdWky95D'
+yelp_token_secret: 'D0QEkYUEIFQCzUzym0l_rvAMm2A'
+
+# Google API
+google_api_key: 'AIzaSyAUeR5o3TOp3XcMAYsp4QWUd28znW5HtMk'

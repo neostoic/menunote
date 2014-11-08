@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  unit: MyString
+  order_num: 1
+  price_max: 9.99
+  price_min: 9.99
+  references: 
+
+two:
+  name: MyString
+  unit: MyString
+  order_num: 1
+  price_max: 9.99
+  price_min: 9.99
+  references: 

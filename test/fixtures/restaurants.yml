@@ -1,0 +1,73 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sp_id: MyString
+  name: MyString
+  description: MyText
+  business_type: MyString
+  out_of_business: false
+  is_published: false
+  published_at: 2014-11-02 12:44:37
+  is_owner_verified: false
+  phone: MyString
+  email: MyString
+  website: MyString
+  time_zone: MyString
+  created: 2014-11-02 12:44:37
+  updated: 2014-11-02 12:44:37
+  address1: MyString
+  address2: MyString
+  city: MyString
+  state: MyString
+  postal_code: MyString
+  latitude: 
+  longitude: 
+  cross_street: MyString
+  neighborhood: MyString
+  directions: MyString
+  price_rating: MyString
+  alcohol: MyString
+  delivery: false
+  take_out: false
+  dine_in: false
+  drive_thru: false
+  catering: false
+  wheelchair_access: false
+  reservations: false
+  average_price: MyString
+
+two:
+  sp_id: MyString
+  name: MyString
+  description: MyText
+  business_type: MyString
+  out_of_business: false
+  is_published: false
+  published_at: 2014-11-02 12:44:37
+  is_owner_verified: false
+  phone: MyString
+  email: MyString
+  website: MyString
+  time_zone: MyString
+  created: 2014-11-02 12:44:37
+  updated: 2014-11-02 12:44:37
+  address1: MyString
+  address2: MyString
+  city: MyString
+  state: MyString
+  postal_code: MyString
+  latitude: 
+  longitude: 
+  cross_street: MyString
+  neighborhood: MyString
+  directions: MyString
+  price_rating: MyString
+  alcohol: MyString
+  delivery: false
+  take_out: false
+  dine_in: false
+  drive_thru: false
+  catering: false
+  wheelchair_access: false
+  reservations: false
+  average_price: MyString

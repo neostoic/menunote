@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sp_id: MyString
+  name: MyString
+  description: MyText
+  menu_type: MyString
+  footnote: MyString
+  currency: MyString
+  order_num: 1
+  attribution_image: MyString
+  attribution_image_link: MyString
+  secure_attribute_image: MyString
+  secure_attribution_image_link: MyString
+  references: 
+
+two:
+  sp_id: MyString
+  name: MyString
+  description: MyText
+  menu_type: MyString
+  footnote: MyString
+  currency: MyString
+  order_num: 1
+  attribution_image: MyString
+  attribution_image_link: MyString
+  secure_attribute_image: MyString
+  secure_attribution_image_link: MyString
+  references: 

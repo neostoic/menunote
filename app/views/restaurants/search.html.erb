@@ -1,0 +1,15 @@
+<h1> Search Result: </h1>
+<%= @search_output.each_with_index do |venue, i| %>
+<%= i + 1 %>=================
+<BR/>
+<%= link_to venue['name'], restaurant_path(venue)%>
+<BR/>
+<%= venue['address1'] %>
+<BR/>
+<%= venue['city'] %>
+<%= venue['state'] %>
+<%= venue['postalCode'] %>
+<BR/>
+<%= venue['country'] %>
+<BR/>
+<% end %>
