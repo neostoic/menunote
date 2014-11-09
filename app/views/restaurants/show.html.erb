@@ -5,7 +5,7 @@
 		<h3><%= section.name %></h3>
 		<% unless section.menu_items.nil? %>
 			<% section.menu_items.each do |item| %>
-				<%= item.name %><BR/>
+				<%= link_to item.name, menu_item_path(item) %><BR/>
 			<% end %>
 		<% end %>
 	<% end %>
