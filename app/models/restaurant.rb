@@ -4,9 +4,10 @@ class Restaurant < ActiveRecord::Base
    has_many :hours
    has_many :payment_types
    has_many :served_meals
+
    def self.search_by_name(query, location)
 	query = CGI.escape(query)
-	location = CGI.escape(query)
+	location = CGI.escape(location)
 	path = "/v2/venues/search?query=#{query}&near=#{location}"
 	# for latitude and longitude, replace near with ll=#{lat},#{long}
 	data = {
@@ -25,14 +26,15 @@ class Restaurant < ActiveRecord::Base
 		if restaurantObj.nil?
 			restaurantObj = Restaurant.create_foursquare_venue(venue)
 		end
-		restaurantsArray << restaurantObj	
+		restaurantsArray << restaurantObj
 	end
 	return restaurantsArray
    end
 
    def self.create_foursquare_venue(venue)
+	foursquareId = venue['id']
 	restaurantObj = Restaurant.new(
-		:foursquare_id => venue['id'],
+		:foursquare_id => foursquareId,
 		:name => venue['name'],
 	)
 	venueLocation = venue['location']
@@ -49,7 +51,18 @@ class Restaurant < ActiveRecord::Base
 	unless venueContact.nil?
 		restaurantObj['phone'] = venueContact['phone']
 	end
+	restaurantObj['sp_id'] = APIHandler.get_matching_singleplatform_id(foursquareId)
 	restaurantObj.save
 	return restaurantObj
+   end
+   def load_menu
+	sp_id = self.sp_id
+	if sp_id.nil?
+		return nil
+	end
+	return Menu.create_restaurant_menu(self)
+
+	self.save	
+	return 'hi'  
    end
 end
