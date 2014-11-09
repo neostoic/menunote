@@ -1,6 +1,8 @@
 <h1><%= @restaurant.name %></h1>
 <% restaurantMenu = @restaurant.menu %>
-<% unless restaurantMenu.nil? %>
+<% if restaurantMenu.nil? %>
+	Menu is not available for this restaurant.
+<% else %>
 	<% restaurantMenu.menu_sections.each do |section| %>
 		<h3><%= section.name %></h3>
 		<% unless section.menu_items.nil? %>

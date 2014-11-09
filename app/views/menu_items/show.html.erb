@@ -1,1 +1,6 @@
 <h1><%= @menu_item.name %></h1>
+<%= @menu_item.description %><BR/>
+<% if @menu_item.menu_choices.length > 0 %>
+	<%= @menu_item.menu_choices[0].prices_max %>
+	<%= @menu_item.menu_choices[0].prices_min %>
+<% end %>
