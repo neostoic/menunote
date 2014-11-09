@@ -8,11 +8,11 @@ class MenuItem < ActiveRecord::Base
 		:name => spItem['name'],
 		:description => spItem['description'],
 		:order_num => spItem['order_num'],
-		:menu_section => sectionObj,
-		:restaurant => sectionObj.restaurant
+		:menu_section_id => sectionObj.id,
+		:restaurant_id => sectionObj.restaurant_id
 	)
 	itemAttr = spItem['attributes']
-	unless itemAttributes.nil?
+	unless itemAttr.nil?
 		menuItemObj.dairy = itemAttr['dairy']
 		menuItemObj.dairy_free = itemAttr['dairy-free']
 		menuItemObj.egg = itemAttr['egg']
@@ -33,7 +33,7 @@ class MenuItem < ActiveRecord::Base
 		menuItemObj.tree_nut = itemAttr['tree-nut']
 		menuItemObj.tree_nut_free = itemAttr['tree-nut-free']
 		menuItemObj.vegan = itemAttr['vegan']
-		menuItemObj.vegtarian = itemAttr['vegetarian']
+		menuItemObj.vegetarian = itemAttr['vegetarian']
 		menuItemObj.wheat = itemAttr['wheat']
 	end
 	spAdditions = spItem['additions']

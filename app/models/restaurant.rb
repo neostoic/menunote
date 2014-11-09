@@ -12,7 +12,7 @@ class Restaurant < ActiveRecord::Base
 	# for latitude and longitude, replace near with ll=#{lat},#{long}
 	data = {
 		:v => Time.now,
-		:limit => 50
+		:limit => 10
 	}
 	searchResult = APIHandler.foursquare_request_data(path, data)
 	if searchResult.nil? || searchResult['venues'].nil?
@@ -60,8 +60,7 @@ class Restaurant < ActiveRecord::Base
 	if sp_id.nil?
 		return nil
 	end
-	return Menu.create_restaurant_menu(self)
-
+	self.menu = Menu.create_restaurant_menu(self)
 	self.save	
 	return 'hi'  
    end

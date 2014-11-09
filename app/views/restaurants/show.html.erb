@@ -1,2 +1,12 @@
 <h1><%= @restaurant.name %></h1>
-<%= @output %>
+<% restaurantMenu = @restaurant.menu %>
+<% unless restaurantMenu.nil? %>
+	<% restaurantMenu.menu_sections.each do |section| %>
+		<h3><%= section.name %></h3>
+		<% unless section.menu_items.nil? %>
+			<% section.menu_items.each do |item| %>
+				<%= item.name %><BR/>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

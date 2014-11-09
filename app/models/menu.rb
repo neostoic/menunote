@@ -1,6 +1,6 @@
 class Menu < ActiveRecord::Base
    belongs_to :restaurants
-
+   has_many :menu_sections
    def self.create_restaurant_menu(restaurant)	
 	sp_id = restaurant.sp_id
 	path = '/locations/' + sp_id + '/menus'
@@ -12,9 +12,10 @@ class Menu < ActiveRecord::Base
 	if spMenu.nil? || spMenu.length <= 0
 		return nil
 	end
+	spMenu = spMenu[0]
 	menuObj = Menu.new({
 		:sp_id => spMenu['id'],
-		:restaurant => restaurant,
+		:restaurant_id => restaurant.id,
 		:name => spMenu['name'],
 		:description => spMenu['description'],
 		:menu_type => spMenu['menu_type'],
@@ -26,7 +27,7 @@ class Menu < ActiveRecord::Base
 	})
 	spMenuSections = spMenu['sections']
 	unless spMenuSections.nil?
-		menuObj.sections = Array.new
+		menuObj.menu_sections = Array.new
 		spMenuSections.each do |section|
 			menuSectionObj = MenuSection.create_menu_section(section, menuObj)
 			menuObj.menu_sections << menuSectionObj
