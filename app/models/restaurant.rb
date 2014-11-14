@@ -33,25 +33,43 @@ class Restaurant < ActiveRecord::Base
 
    def self.create_foursquare_venue(venue)
 	foursquareId = venue['id']
+	sp_id = APIHandler.get_matching_singleplatform_id(foursquareId)
 	restaurantObj = Restaurant.new(
 		:foursquare_id => foursquareId,
 		:name => venue['name'],
+		:sp_id => sp_id
 	)
-	venueLocation = venue['location']
-	unless venueLocation.nil?
-		restaurantObj['address1'] = venueLocation['address']
-		restaurantObj['city'] = venueLocation['city']
-		restaurantObj['state'] = venueLocation['state']
-		restaurantObj['country'] = venueLocation['country']
-		restaurantObj['postal_code'] = venueLocation['postalCode']
-		restaurantObj['latitude'] = venueLocation['lat']
-		restaurantObj['longitude'] = venueLocation['lng']
+	if sp_id.nil?
+		venueLocation = venue['location']
+		unless venueLocation.nil?
+			restaurantObj['address1'] = venueLocation['address']
+			restaurantObj['city'] = venueLocation['city']
+			restaurantObj['state'] = venueLocation['state']
+			restaurantObj['country'] = venueLocation['country']
+			restaurantObj['postal_code'] = venueLocation['postalCode']
+			restaurantObj['latitude'] = venueLocation['lat']
+			restaurantObj['longitude'] = venueLocation['lng']
+		end
+		venueContact = venue['contact']
+		unless venueContact.nil?
+			restaurantObj['phone'] = venueContact['phone']
+		end
+	else
+		path = '/locations/' + sp_id + '/all'
+		spLocation = APIHandler.singleplatform_publishing(path, nil)
+		unless spLocation.nil? || spLocation['data'].nil? || spLocation['data']['location'].nil?
+			spLocation = spLocation['data']['location']
+			restaurantObj.business_type = spLocation['business_type']
+			restaurantObj.website = spLocation['website']
+			restaurantObj.is_owner_verified = spLocation['is_owner_verified']
+			restaurantObj.description = spLocation['description']
+			restaurantObj.time_zone = spLocation['time_zone']
+			restaurantObj.email = spLocation['email']
+			restaurantObj.phone = spLocation['phone']
+			restaurantObj.published_at = spLocation['published_at']
+			restaurantObj.out_of_business = spLocation['out_of_business']
+		end
 	end
-	venueContact = venue['contact']
-	unless venueContact.nil?
-		restaurantObj['phone'] = venueContact['phone']
-	end
-	restaurantObj['sp_id'] = APIHandler.get_matching_singleplatform_id(foursquareId)
 	restaurantObj.save
 	return restaurantObj
    end

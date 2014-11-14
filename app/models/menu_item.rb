@@ -2,6 +2,9 @@ class MenuItem < ActiveRecord::Base
    belongs_to :menu_sections
    has_many :menu_additions
    has_many :menu_choices
+   def getReviews
+	return 'hi'
+   end
    def self.create_menu_item(spItem, sectionObj)
 	menuItemObj = MenuItem.new(
 		:sp_id => spItem['id'],
@@ -51,10 +54,10 @@ class MenuItem < ActiveRecord::Base
 		menuChoicesArr = Array.new
 		spChoices.each do |spChoice|
 			menuChoiceObj = MenuChoice.create_menu_choice(spChoice)
-			menuChoiceObj.menu_item = menuItemObj
-			menuChoiceArr << menuChoiceObj
+#			menuChoiceObj.menu_item_id = menuItemObj.id
+			menuChoicesArr << menuChoiceObj
 		end
-		menuChoiceObj.menu_choices = menuChoicesArr
+		menuItemObj.menu_choices = menuChoicesArr
 	end
 	return menuItemObj
    end
