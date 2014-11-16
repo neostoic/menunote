@@ -5,4 +5,13 @@
 	<%= @menu_item.menu_choices[0].prices_min %>
 <% end %>
 <BR/>
-<%= @menu_item.getReviews() %>
+<% reviews = @menu_item.getReviews().sort_by { |r| r['date_created'] }.reverse! %>
+<% for i in 0..reviews.length-1 %>
+<div>
+	<% review = reviews[i] %>
+	<img src="<%= review['user_image_url']%>"><%= review['user_name'] %>
+	<BR/>
+	<%= review['text'] %>
+	<%= Time.at(review['date_created']).strftime("%m/%d/%Y") %>
+</div>
+<% end %>

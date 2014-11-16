@@ -68,6 +68,11 @@ class Restaurant < ActiveRecord::Base
 			restaurantObj.phone = spLocation['phone']
 			restaurantObj.published_at = spLocation['published_at']
 			restaurantObj.out_of_business = spLocation['out_of_business']
+			spForeignIds = spLocation['foreign_ids']
+			unless spForeignIds.nil?
+				restaurantObj.facebook_id = spForeignIds['facebook']
+				restaurantObj.yelp_id = spForeignIds['yelp']
+			end
 		end
 	end
 	restaurantObj.save

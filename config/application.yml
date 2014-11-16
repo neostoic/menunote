@@ -17,3 +17,8 @@ yelp_token_secret: 'D0QEkYUEIFQCzUzym0l_rvAMm2A'
 
 # Google API
 google_api_key: 'AIzaSyAUeR5o3TOp3XcMAYsp4QWUd28znW5HtMk'
+
+# Twitter API
+twitter_key: "RHJRqVyYABcwx1pBmKIyl1SKI"
+twitter_secret: "8hRfn5Tg5WPk6cuWMnDvTNp0JNMFVAltfUv7unPILpU10oLFRS"
+ 

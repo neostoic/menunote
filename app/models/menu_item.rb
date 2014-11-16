@@ -1,9 +1,94 @@
 class MenuItem < ActiveRecord::Base
-   belongs_to :menu_sections
    has_many :menu_additions
    has_many :menu_choices
+   has_one :restaurant
+   def get_restaurant
+	restaurantId = self.restaurant_id
+	restaurant = Restaurant.find(restaurantId)
+	return restaurant
+   end
    def getReviews
-	return 'hi'
+	foursquare_tips = get_foursquare_tips()
+	#yelp_reviews = get_yelp_reviews()
+	tweets = get_tweets()
+	combinedReviews = foursquare_tips.concat(tweets)
+	return combinedReviews
+   end
+   def get_foursquare_tips()
+	reviews = Array.new
+	menuItemName = self.name.downcase
+	restaurant = get_restaurant()
+	path = "/v2/venues/#{restaurant.foursquare_id}/tips?"
+	data = {
+		:v => Time.now,
+		:limit => 500
+	}
+	tips = APIHandler.foursquare_request_data(path, data)
+	if tips.nil? || tips['tips'].nil? || tips['tips']['items'].nil?
+		return reviews
+	end
+	tips = tips['tips']['items']
+	unless tips.nil?
+		tips.each do |tip|
+			text = tip['text']
+			if text.nil?
+				continue
+			end
+			if text.downcase.include? menuItemName
+				review = {
+					"user_name"=> tip['user']['firstName'] + ' ' + tip['user']['lastName'],
+					"user_image_url"=> tip['user']['photo'],
+					"text"=> text,
+					"date_created"=> tip['createdAt']
+				}
+				reviews << review
+			end
+		end
+	end
+	return reviews
+   end
+   def get_yelp_reviews
+	restaurant = self.get_restaurant()
+	path = "/v2/business/#{restaurant.yelp_id}"
+	reviews = Array.new
+	yelpReviews = APIHandler.yelp_request_data(path)
+	if yelpReviews.nil?
+		return reviews
+	end
+	yelpReviews = yelpReviews['reviews']
+	if yelpReviews.nil?
+		return reviews
+	end
+	yelpReviews.each do |yelpReview|
+		review = {
+			"user_name"=> yelpReview['user']['name'],
+			"user_image_url"=> yelpReview['user']['image_url'],
+			"text"=> yelpReview['excerpt'],
+			"date_created"=> yelpReview['time_created']
+		}
+		reviews << review	
+	end
+	return reviews
+   end
+   def get_tweets
+	restaurant = get_restaurant()
+	query = restaurant.name + ' ' + self.name
+	tweets = Array.new
+	searchResults = APIHandler.twitter_search(query)
+	searchResults.each do |result|
+		text = result['text']
+#		isRetweet = text.index("RT @") === 0
+#		if isRetweet !== true
+			tweet = {
+				"user_name"=> result['user']['name'],
+				"user_image_url"=> result['user']['profile_image_url'],
+				"text"=> text,
+				"date_created"=> result['created_at'].to_datetime.to_i
+			}
+			tweets << tweet
+#		end
+	end
+	return tweets
    end
    def self.create_menu_item(spItem, sectionObj)
 	menuItemObj = MenuItem.new(

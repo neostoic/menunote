@@ -73,6 +73,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
+    oauth (0.4.7)
     pg (0.17.1)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -140,6 +141,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 2.0)
   jquery-rails
+  oauth
   pg
   rails (= 4.1.6)
   sass-rails (~> 4.0.3)

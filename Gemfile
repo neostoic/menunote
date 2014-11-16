@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-
+# OAuth
+gem 'oauth'
 # HTTParty
 gem 'httparty'
 # figaro - config/application.yml
