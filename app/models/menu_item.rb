@@ -7,11 +7,14 @@ class MenuItem < ActiveRecord::Base
 	restaurant = Restaurant.find(restaurantId)
 	return restaurant
    end
-   def getReviews
+   def get_reviews
 	foursquare_tips = get_foursquare_tips()
 	#yelp_reviews = get_yelp_reviews()
 	tweets = get_tweets()
 	combinedReviews = foursquare_tips.concat(tweets)
+	if combinedReviews.nil?
+		combinedReviews = Array.new
+	end
 	return combinedReviews
    end
    def get_foursquare_tips()
@@ -35,11 +38,22 @@ class MenuItem < ActiveRecord::Base
 				continue
 			end
 			if text.downcase.include? menuItemName
+				user = tip['user']
+				userFirstName = user['firstName']
+				userLastName = user['lastName']
+				userFullName = Array.new
+				unless userFirstName.nil?
+					userFullName << userFirstName
+				end
+				unless userLastName.nil?
+					userFullName << userLastName
+				end
 				review = {
-					"user_name"=> tip['user']['firstName'] + ' ' + tip['user']['lastName'],
-					"user_image_url"=> tip['user']['photo'],
+					"user_name"=> userFullName.join(" "),
+					"user_image_url"=> user['photo'],
 					"text"=> text,
-					"date_created"=> tip['createdAt']
+					"date_created"=> tip['createdAt'],
+					"source"=>"Foursquare"
 				}
 				reviews << review
 			end
@@ -64,7 +78,8 @@ class MenuItem < ActiveRecord::Base
 			"user_name"=> yelpReview['user']['name'],
 			"user_image_url"=> yelpReview['user']['image_url'],
 			"text"=> yelpReview['excerpt'],
-			"date_created"=> yelpReview['time_created']
+			"date_created"=> yelpReview['time_created'],
+			"source"=>"Yelp"
 		}
 		reviews << review	
 	end
@@ -83,7 +98,8 @@ class MenuItem < ActiveRecord::Base
 				"user_name"=> result['user']['name'],
 				"user_image_url"=> result['user']['profile_image_url'],
 				"text"=> text,
-				"date_created"=> result['created_at'].to_datetime.to_i
+				"date_created"=> result['created_at'].to_datetime.to_i,
+				"source"=>"Twitter"
 			}
 			tweets << tweet
 #		end
