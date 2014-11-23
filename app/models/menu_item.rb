@@ -4,13 +4,16 @@ class MenuItem < ActiveRecord::Base
    has_many :menu_choices
    has_one :restaurant
    def get_image_url
+	unless self.photo_url.nil?
+		return self.photo_url
+	end
 	imageUrl = 'http://www.hollandlift.com/wp-content/themes/hollandlift/assets/images/no_image.jpg'
 	restaurant = self.get_restaurant()
 	restaurantUrl = restaurant.website
 	if restaurantUrl.nil?
 		return imageUrl
 	end
-	restaurantUrl = restaurantUrl.sub(/http(s)*:\/\//,'')
+	restaurantUrl = restaurantUrl.sub(/http(s)*:\/\//,'').split("/")[0] + '/'
 	menuItemName = self.name
 	query = menuItemName + ' site:' + restaurantUrl
 	# Google Search
@@ -18,6 +21,7 @@ class MenuItem < ActiveRecord::Base
 	unless googleResults.nil? || googleResults.length <= 0
 		googleResults.each do |result|
 			resultImgTitle = result['snippet']
+
 			if MenuItem.is_valid_image_title(menuItemName, resultImgTitle) === true
 				return result['link']
 			end
@@ -37,14 +41,19 @@ class MenuItem < ActiveRecord::Base
 	return imageUrl
    end
    def self.is_valid_image_title(menuItemName, resultImgTitle)
-	if resultImgTitle === menuItemName
+	menuItem = menuItemName.downcase
+	imageTitle = resultImgTitle.downcase
+	if menuItem === imageTitle
 		return true
 	end
-	menuItemRegexp = Regexp.new(menuItemName, 'i')
-	if resultImgTitle.match(menuItemRegexp) || menuItemName.match(Regexp.new(resultImgTitle))
+	if (menuItem.include? imageTitle) || (imageTitle.include? menuItem)
 		return true
 	end
-	regexpStr = menuItemName.gsub(/[^ 0-9A-Za-z&'*"]/, '').sub(/^ /,'').sub(/ $/,'')
+	diffNumLetters = (menuItemName.length - resultImgTitle.length).abs
+	if diffNumLetters > 20
+		return false
+	end
+	regexpStr = menuItemName.gsub(/[^ A-Za-z&'*"]/, '').sub(/^ /,'').sub(/ $/,'')
 	regexpStr = regexpStr.gsub(' ', '|')
 	matchWords = resultImgTitle.scan(Regexp.new(regexpStr, 'gi'))
 	unless matchWords.nil?
