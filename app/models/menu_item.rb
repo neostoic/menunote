@@ -1,7 +1,61 @@
 class MenuItem < ActiveRecord::Base
+   has_many :images
    has_many :menu_additions
    has_many :menu_choices
    has_one :restaurant
+   def get_image_url
+	imageUrl = 'http://www.hollandlift.com/wp-content/themes/hollandlift/assets/images/no_image.jpg'
+	restaurant = self.get_restaurant()
+	restaurantUrl = restaurant.website
+	if restaurantUrl.nil?
+		return imageUrl
+	end
+	restaurantUrl = restaurantUrl.sub(/http(s)*:\/\//,'')
+	menuItemName = self.name
+	query = menuItemName + ' site:' + restaurantUrl
+	# Google Search
+	googleResults = APIHandler.google_custom_search(query)
+	unless googleResults.nil? || googleResults.length <= 0
+		googleResults.each do |result|
+			resultImgTitle = result['snippet']
+			if MenuItem.is_valid_image_title(menuItemName, resultImgTitle) === true
+				return result['link']
+			end
+		end
+	end
+	# Bing Search
+	bingResults = APIHandler.bing_search("Image", query)['results']
+	unless bingResults.nil? || bingResults.length <= 0
+		bingResults.each do |result|
+			resultImgTitle = result['Title']
+			if MenuItem.is_valid_image_title(menuItemName, resultImgTitle) === true
+				imageUrl = result['MediaUrl']
+				return imageUrl
+			end
+		end
+	end
+	return imageUrl
+   end
+   def self.is_valid_image_title(menuItemName, resultImgTitle)
+	if resultImgTitle === menuItemName
+		return true
+	end
+	menuItemRegexp = Regexp.new(menuItemName, 'i')
+	if resultImgTitle.match(menuItemRegexp) || menuItemName.match(Regexp.new(resultImgTitle))
+		return true
+	end
+	regexpStr = menuItemName.gsub(/[^ 0-9A-Za-z&'*"]/, '').sub(/^ /,'').sub(/ $/,'')
+	regexpStr = regexpStr.gsub(' ', '|')
+	matchWords = resultImgTitle.scan(Regexp.new(regexpStr, 'gi'))
+	unless matchWords.nil?
+		numMatchingWords = matchWords.length
+		numRegexpWords = regexpStr.split("|").length
+		if numMatchingWords >= numRegexpWords.to_f/2	
+			return true
+		end
+	end
+	return false
+   end
    def get_restaurant
 	restaurantId = self.restaurant_id
 	restaurant = Restaurant.find(restaurantId)
@@ -115,6 +169,17 @@ class MenuItem < ActiveRecord::Base
 		:menu_section_id => sectionObj.id,
 		:restaurant_id => sectionObj.restaurant_id
 	)
+	photos = spItem['photos']
+	unless photos.nil? || photos.length <= 0
+		photos.each do |url|
+			menuItemObj.images = Array.new
+			img = Image.new(
+				:url => url,
+				:menu_item_id => menuItemObj.id
+			)
+			menuItemObj.images << img
+		end
+	end
 	itemAttr = spItem['attributes']
 	unless itemAttr.nil?
 		menuItemObj.dairy = itemAttr['dairy']

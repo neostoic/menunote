@@ -1,4 +1,36 @@
 class APIHandler < ActiveRecord::Base
+   def self.google_custom_search(query)
+	cx = '001183720606132600562:hx82y7lwugw'
+	cacheKey = 'googlecs' + cx + query
+	Rails.cache.fetch(cacheKey, :expires => 24.hour) do
+		apiKey = ENV['google_api_key']
+		query = CGI.escape(query)
+		search_url = "https://www.googleapis.com/customsearch/v1?key=#{apiKey}&cx=#{cx}&q=#{query}&searchType=image&alt=json"
+		result = HTTParty.get(search_url)
+		result['items']
+	end
+	result = Rails.cache.fetch(cacheKey)
+	return result
+   end
+   def self.bing_search(source, query)
+	key = 'bingsearch' + source + query
+	Rails.cache.fetch(key, :expires => 24.hour) do
+		acctKey = ENV['bing_search_account_key']
+		rootUrl = "https://api.datamarket.azure.com/Bing/Search/#{source}"
+		query = CGI.escape(query)
+		websearchUrl = "#{rootUrl}?$format=json&Query=%27#{query}%27"
+		cred = "Basic #{Base64.encode64('username:' + acctKey).gsub(/\n/,'')}"
+		output = HTTParty.post(websearchUrl,
+			:headers => {"Authorization" => cred}
+		)
+		unless output.nil?
+			output = output['d']
+		end
+		output
+	end
+	result = Rails.cache.fetch(key)
+	return result
+   end
    def self.foursquare_request_data(path, data)
 	self.foursquare_init()
 	return Fsquare.request_data(path, data)	
