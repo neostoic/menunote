@@ -9,12 +9,9 @@ class MenuItem < ActiveRecord::Base
 	end
 	imageUrl = 'http://www.hollandlift.com/wp-content/themes/hollandlift/assets/images/no_image.jpg'
 	restaurant = self.get_restaurant()
-	restaurantUrl = restaurant.website
-	if restaurantUrl.nil?
-		return imageUrl
-	end
-	restaurantUrl = restaurantUrl.sub(/http(s)*:\/\//,'').split("/")[0] + '/'
+	restaurantUrl = restaurant.get_website()
 	menuItemName = self.name
+=begin
 	query = menuItemName + ' site:' + restaurantUrl
 	# Google Search
 	googleResults = APIHandler.google_custom_search(query)
@@ -27,6 +24,20 @@ class MenuItem < ActiveRecord::Base
 			end
 		end
 	end
+=end
+	query = menuItemName + ' ' + restaurant.name + ' related:foodspotting.com'
+	# Foodspotting
+	googleResults = APIHandler.google_custom_search(query)
+	unless googleResults.nil? || googleResults.length <= 0
+		googleResults.each do |result|
+			resultImgTitle = result['snippet']
+
+			if MenuItem.is_valid_image_title(menuItemName, resultImgTitle) === true
+				return result['link']
+			end
+		end
+	end
+=begin
 	# Bing Search
 	bingResults = APIHandler.bing_search("Image", query)['results']
 	unless bingResults.nil? || bingResults.length <= 0
@@ -39,6 +50,7 @@ class MenuItem < ActiveRecord::Base
 		end
 	end
 	return imageUrl
+=end
    end
    def self.is_valid_image_title(menuItemName, resultImgTitle)
 	menuItem = menuItemName.downcase

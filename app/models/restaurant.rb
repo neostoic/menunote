@@ -4,7 +4,30 @@ class Restaurant < ActiveRecord::Base
    has_many :hours
    has_many :payment_types
    has_many :served_meals
-
+   def get_website
+	url = self.website
+	if url.nil? || url===''
+		franchises = self.get_franchises()
+		withUrl = franchises.where("website IS NOT NULL")
+		unless withUrl.nil? || withUrl.size <= 0
+			url = withUrl.last.website
+		end
+	end
+	return url
+   end
+   def get_franchises
+	return Restaurant.where("id <> ? and name=? and sp_id is not null", self.id, self.name)
+   end
+   def get_restaurant_menu
+	menu = self.menu
+	if menu.nil?
+		franchise = self.get_franchises().first
+		unless franchise.nil?
+			menu = franchise.menu
+		end
+	end
+	return menu
+   end
    def self.search_by_name(query, location)
 	query = CGI.escape(query)
 	location = CGI.escape(location)
