@@ -49,7 +49,9 @@ class Restaurant < ActiveRecord::Base
 		if restaurantObj.nil?
 			restaurantObj = Restaurant.create_foursquare_venue(venue)
 		end
-		restaurantsArray << restaurantObj
+		unless restaurantObj.menu.nil?
+			restaurantsArray << restaurantObj
+		end
 	end
 	return restaurantsArray
    end
@@ -108,6 +110,5 @@ class Restaurant < ActiveRecord::Base
 	end
 	self.menu = Menu.create_restaurant_menu(self)
 	self.save	
-	return 'hi'  
    end
 end
