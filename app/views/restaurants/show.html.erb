@@ -1,25 +1,46 @@
-<h1><%= @restaurant.name %></h1>
-<% restaurantMenu = @restaurant.get_restaurant_menu() %>
-<% if restaurantMenu.nil? %>
-	Menu is not available for this restaurant.
-<% else %>
-	URL: <%= @restaurant.website %>
+<div class="pop-up">
+    <div class="note_top">
+    </div>
 
-	<br/>
-	<select class="menu_sections">
-		<option name="popularity">Popularity</option>
-		<% restaurantMenu.menu_sections.each do |section| %>
-		<option name="section"><%= section.name %></option>
-		<% end %>
-	</select>
-	<% unless @section.nil? %>
-		<h3><%= @section.name %></h3>
-		<% unless @section.menu_items.nil? %>
-			<% @section.menu_items.each do |item| %>
-				<%= link_to item.name, menu_item_path(item) %><BR/>
-<%=item.get_image_url() %><BR/>
-				<img src="<%= item.get_image_url() %>" height=300 width=400><br/>
-			<% end %>
-		<% end %>
+<div class="grid-pad">
+<div class="top">
+
+ 	  <div class="col-2-5">
+    	 <div class="module">
+        <div class="restaurant_name">
+<h3><%= @restaurant.name %></h3>
+            </div>
+        </div>
+    	 </div>
+  	</div>
+
+  <div class="col-1-5">
+     <div class="module">
+     </div>
+  </div>
+
+  <div class="col-2-5">
+    <div class="module">
+
+      <%= render "section_dropdown" %>
+    </div>
+   
+  </div>
+
+
+   <% unless @section.nil? || @section.menu_items.nil? %>
+	<% @section.menu_items.each do |item| %>
+   <div class="col-1-2">
+
+     <div class="module">
+            <div class="contents">
+		<img src="<%=item.get_image_url()%>">     	      	
+            </div>
+     </div>
+   </div>
 	<% end %>
-<% end %>
+   <% end %>
+
+
+ </div>
+</div>

@@ -1,0 +1,25 @@
+<h1><%= @restaurant.name %></h1>
+<% restaurantMenu = @restaurant.get_restaurant_menu() %>
+<% if restaurantMenu.nil? %>
+	Menu is not available for this restaurant.
+<% else %>
+	URL: <%= @restaurant.website %>
+
+	<br/>
+	<select class="menu_sections">
+		<option name="popularity">Popularity</option>
+		<% restaurantMenu.menu_sections.each do |section| %>
+		<option name="section"><%= section.name %></option>
+		<% end %>
+	</select>
+	<% unless @section.nil? %>
+		<h3><%= @section.name %></h3>
+		<% unless @section.menu_items.nil? %>
+			<% @section.menu_items.each do |item| %>
+				<%= link_to item.name, menu_item_path(item) %><BR/>
+<%=item.get_image_url() %><BR/>
+				<img src="<%= item.get_image_url() %>" height=300 width=400><br/>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
