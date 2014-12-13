@@ -1,18 +1,96 @@
-<h1><%= @menu_item.name %></h1>
-<%= @menu_item.description %><BR/>
-<% if @menu_item.menu_choices.length > 0 %>
-	<%= @menu_item.menu_choices[0].prices_max %>
-	<%= @menu_item.menu_choices[0].prices_min %>
-<% end %>
-<BR/>
-<% for i in 0..@reviews.length-1 %>
-<div>
-	<% review = @reviews[i] %>
-	<img src="<%= review['user_image_url']%>"><%= review['user_name'] %>
-	<%= review['source'] %>
-	<BR/>
-	<%= review['text'] %>
-	<%= Time.at(review['date_created']).strftime("%m/%d/%Y") %>
+<link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
 
-</div>
-<% end %>
+<div class="pop-up">
+	<div class="menu_item">
+		<%= link_to restaurant_path(@menu_item.restaurant_id) do %>
+		<div class="back_to_menu">
+		</div>
+		<% end %>
+
+		<div class="title">
+			<%= @menu_item.name %>
+		</div>
+
+ 		<div class="menu_photo">
+			<img src="<%= @menu_item.get_image_url()%>">
+    	 	<div class="price">
+     		</div>
+
+     	</div>
+
+
+
+	<div class="menu_script">
+		<%= @menu_item.description %>
+     	</div>
+
+     <div class="popular_words">
+
+		<div class="col-1-5">
+     		<div class="module">
+     			<div class="spoon">
+     			</div>
+     		</div>
+     	</div>
+
+		<div class="col-1-5">
+     		<div class="module">
+     			<div class="buttery">
+     				<div class="words">
+     					Buttery
+     				</div>
+     				<div class="percentages1">
+     					30%
+     				</div>
+     			</div>
+     		</div>
+     	</div>
+
+
+		<div class="col-1-5">
+     		<div class="module">
+     			<div class="juicy">
+     				<div class="words">
+     					Juicy
+     				</div>
+     				<div class="percentages2">
+     					25%
+     				</div>
+     			</div>
+     		</div>
+     	</div>
+
+
+		<div class="col-1-5">
+    		 <div class="module">
+    		 	<div class="sweet">
+    		 		<div class="words">
+     					Sweet
+     				</div>
+     				<div class="percentages3">
+     					18%
+     				</div>
+     			</div>
+     		</div>
+     	</div>
+
+
+		<div class="col-1-5">
+    		 <div class="module">
+    		 	<div class="crispy">
+    		 		<div class="words">
+     					Scrispy
+     				</div>
+     				<div class="percentages4">
+     					17%
+     				</div>
+     			</div>
+			</div>
+     	</div>
+
+     </div>
+
+		
+     
+  	 	</div>
+  	</div>

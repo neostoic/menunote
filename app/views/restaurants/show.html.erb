@@ -9,7 +9,7 @@
 	<select class="menu_sections">
 		<option name="popularity">Popularity</option>
 		<% restaurantMenu.menu_sections.each do |section| %>
-		<option name="section"><%=section.name%></option>
+		<option name="section"><%= section.name %></option>
 		<% end %>
 	</select>
 	<% unless @section.nil? %>

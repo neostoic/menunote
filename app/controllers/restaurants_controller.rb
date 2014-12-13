@@ -6,7 +6,11 @@ class RestaurantsController < ApplicationController
 	end
 	menu = @restaurant.get_restaurant_menu()
 	unless menu.nil?
-		@section = menu.menu_sections[1]
+		if params[:menu_section].nil?
+			@section = menu.menu_sections[1]
+		else
+			@section = menu.menu_sections.find_by_name(params[:menu_section])
+		end
 	end
    end
    def search
