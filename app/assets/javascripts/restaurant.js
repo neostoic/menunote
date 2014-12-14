@@ -1,7 +1,8 @@
 $(function() {
 	$(".accordions").accordion({
 		collapsible: true,
-		active: false
+		active: false,
+		animate: 200
 	});
 	$("#food_category").on('click', function() {
 		if ($("#restaurant_info_contents").is(":visible")===true) {

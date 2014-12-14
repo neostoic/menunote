@@ -27,14 +27,26 @@
 	<div class="accordions">
 		<span id="restaurant_info_header"></span>
 		<div id="restaurant_info_contents">
-			<%= @restaurant.city %>
+			<%= @restaurant.get_address() %>
+			<%= @restaurant.get_website() %>
 		</div>
 	</div>
 	  <div class="accordions">
 		<span id="food_category_header"></span>
 	        <div id="food_category_contents">
-	            <p>Mauris</p>
-		    Hamburger, Fries, Sandwich
+			<table>
+			<% @restaurant.menu.menu_sections.each_with_index do |section, i| %>
+				<% if i%2 === 0 %>
+					<tr>
+				<% end %>
+				<td>
+					<%= section.name %>
+				</td>
+				<% if i%2 === 1 %>
+					</td>
+				<% end %>
+			<% end %>
+			</table>
 	        </div>
 		</div>
 	  </div>

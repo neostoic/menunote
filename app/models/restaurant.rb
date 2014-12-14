@@ -4,6 +4,25 @@ class Restaurant < ActiveRecord::Base
    has_many :hours
    has_many :payment_types
    has_many :served_meals
+   def get_address
+	fullAddress = Array.new
+	unless self.address1.nil?
+		fullAddress << self.address1
+	end
+	unless self.address2.nil?
+		fullAddress << self.address2
+	end
+	unless self.city.nil?
+		fullAddress << self.city
+	end
+	unless self.state.nil?
+		fullAddress << self.state
+	end
+	unless self.postal_code.nil?
+		fullAddress << self.postal_code
+	end
+	return fullAddress.join(" ")
+   end
    def get_website
 	url = self.website
 	if url.nil? || url===''

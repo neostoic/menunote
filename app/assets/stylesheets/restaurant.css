@@ -46,7 +46,20 @@
 #food_category_contents,#restaurant_info_contents {
 	background-color:black;
 	color:white;
-	padding:15px;
+	overflow:hidden;
+	width:100%;
+}
+#food_category_contents table {
+	border-collapse: collapse;
+	width:100%;
+	border:0;
+}
+#food_category_contents td {
+	height:50px;
+	width:50%;
+	border-right: 1px solid white;
+	border-top: 1px solid white;
+	text-align:center;
 }
 .col-2-5 {
 	width:40%;
