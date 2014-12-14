@@ -15,7 +15,10 @@
  */
 html {
 	background-image:url('background.jpg');
-	background-size:100%;	
+	background-repeat:no-repeat;
+	background-size:100%;
+	background-position: 0 -50px;
+	background-attachment:fixed;
 }
 .logo {
 	background-image:url('menunote_logo.png');
@@ -24,4 +27,16 @@ html {
 	width:500px;
 	height:50px;
 	position:fixed;
+}
+.search_icon {
+	width:50px;
+	height:50px;
+}
+.search_area {
+	position:absolute;
+	background-color:white;
+	width:400px;
+	height:500px;
+	right:0;
+	display:none;
 }

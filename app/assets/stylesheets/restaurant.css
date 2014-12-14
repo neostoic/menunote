@@ -1,7 +1,9 @@
 .pop-up{
 	width:600px;
-	margin:30px auto;
-	
+	margin:5px auto;
+	-webkit-box-shadow: 0px -3px 25px 0px rgba(50, 50, 50, 0.8);
+	-moz-box-shadow: 0px -3px 25px 0px rgba(50,50,50,0.8);
+	box-shadow: 0px -3px 25px 0px rgba(50,50,50,0.8);		
 }
 .grid-pad {
 	width:100%;
