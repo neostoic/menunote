@@ -36,7 +36,102 @@ html {
 	position:absolute;
 	background-color:white;
 	width:400px;
-	height:500px;
+	height:100%;
+	opacity:0.9;
 	right:0;
-	display:none;
+}
+.search_icon {
+	height:50px;
+	width:100%;
+}
+.search_query {
+	margin-left:50px;
+	margin-bottom:10px;
+	width:300px;
+	height:30px;
+}
+.search_zipcode {
+	margin-left:50px;
+	margin-top:10px;
+	margin-bottom:10px;
+	width:190px;
+	height:30px;
+	float:left;
+}
+.search_area div input[type="text"] {
+	width:100%;
+	height:100%;
+	-webkit-border-radius:20px;
+	-moz-border-radius:20px;
+	border:2px solid #EE384F;
+	padding-left:15px;
+	border-radius:20px;
+	font-family: 'Quicksand', sans-serif;
+	font-weight:700;
+	font-size:18px;
+}
+.search_button {
+	margin-top:10px;
+	margin-bottom:10px;
+	margin-left:30px;
+	height:30px;
+	width:100px;
+	display:inline-block;
+}
+.search_button input{
+	width:100%;
+	height:120%;
+	font-family: 'Quicksand', sans-serif;
+	font-weight:700;
+	font-size:18px;
+	color:white;
+	border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	background-color:#EE384F;
+}
+.search_arrow {
+	background-image:url('arrow.png');
+	background-repeat:no-repeat;
+	background-position:50px 5px;
+	background-size:20%;
+	width:50%;
+	height:50px;
+	float:left;
+}
+.search_icon {
+	background-image:url('search_icon.png');
+	background-repeat:no-repeat;
+	background-position:0px 5px;
+	background-size:20%;
+	width:50%;
+	height:50px;
+	display:inline-block;
+}
+.search_result {
+	background-color:white;
+	opacity:1 !important;
+	width:80%;
+	min-height:100px;
+	margin:0 auto;
+	font-family: 'Quicksand', sans-serif;
+	font-weight:700;
+	font-size:18px;
+	padding:20px;
+}
+.result_name {
+	font-family: 'Quicksand', sans-serif;
+	font-weight:700;
+	font-size:18px;
+	color:#4A4A4A;
+}
+.result_cuisine {
+	color:#EE384F;
+}
+.result_city {
+	color:#818181;
+}
+.result_address {
+	color:#AEAEAE;
 }

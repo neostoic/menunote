@@ -7,12 +7,40 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="logo">
-</div>
-<div class="search_icon">
-</div>
-<div class="search_area">
-</div>
+   <div class="logo">
+   </div>
+   <div class="search_area">
+     <div class="search_arrow">
+     </div>
+     <div class="search_icon">
+     </div>
+     <div class="search_query">
+        <input type="text" name="query" placeholder="Find Restaurants"/><br/>
+     </div>
+     <div class="search_zipcode">
+        <input type="text" name="zipcode" placeholder="Zipcode"/>
+     </div> 
+     <div class="search_button">
+	<input type="submit" value="Search"> 
+     </div>
+     <div class="search_result">
+	<span class="result_name">
+		Panera Bread
+	</span>
+	<br/>
+	<span class="result_cuisine">
+		Sandwiches, Salad, Soup
+	</span>
+	<br/>
+	<span class="result_city">
+		Chelsea
+	</span>
+	<br/>
+	<span class="result_address">
+		330 5th Ave New York
+	</span>
+     </div>
+   </div>
 <%= yield %>
 
 </body>
