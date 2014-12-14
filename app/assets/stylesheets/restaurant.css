@@ -1,7 +1,7 @@
 .pop-up{
 	width:600px;
-	margin:0 auto;
-
+	margin:30px auto;
+	
 }
 .grid-pad {
 	width:100%;
@@ -48,6 +48,12 @@
 	color:white;
 	overflow:hidden;
 	width:100%;
+	font-family: 'Quicksand', sans-serif;
+	font-size:12px;
+	font-weight:500;
+}
+#restaurant_info_contents {
+	padding:30px;
 }
 #food_category_contents table {
 	border-collapse: collapse;
@@ -55,7 +61,7 @@
 	border:0;
 }
 #food_category_contents td {
-	height:50px;
+	height:40px;
 	width:50%;
 	border-right: 1px solid white;
 	border-top: 1px solid white;

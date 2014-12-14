@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+html {
+	background-image:url('background.jpg');
+	background-size:100%;	
+}
+.logo {
+	background-image:url('menunote_logo.png');
+	background-repeat:no-repeat;
+	background-size:50%;
+	width:500px;
+	height:50px;
+	position:fixed;
+}

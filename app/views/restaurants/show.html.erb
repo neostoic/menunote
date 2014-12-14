@@ -1,3 +1,4 @@
+<link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
 <div class="pop-up">
     <div class="note_top">
     </div>
@@ -28,6 +29,9 @@
 		<span id="restaurant_info_header"></span>
 		<div id="restaurant_info_contents">
 			<%= @restaurant.get_address() %>
+			<BR/>
+			<BR/>
+			<%= @restaurant.phone %>
 			<%= @restaurant.get_website() %>
 		</div>
 	</div>
