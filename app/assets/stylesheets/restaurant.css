@@ -3,8 +3,6 @@
 	margin:0 auto;
 
 }
-
-
 .grid-pad {
 	width:100%;
 }
@@ -29,30 +27,36 @@
 }
 .restaurant_name {
 	text-align:center;
+	line-height:100px;
 	font-family: 'Quicksand', sans-serif;
-	font-size:19px;
+	font-size:15px;
 	width:220px;
 	height:30px;
 	font-weight:700;
 }
-.categories {
+#food_category {
 	text-align:center;
+	line-height:100px;
 	font-family: 'Quicksand', sans-serif;
-	font-size:19px;
-	width:240px;
-	height:100px;
-	font-weight:400;
+	font-size:15px;
+	width:220px;
+	height:30px;
+	font-weight:700;
+}
+#food_category_contents,#restaurant_info_contents {
+	background-color:black;
+	color:white;
+	padding:15px;
 }
 .col-2-5 {
 	width:40%;
-	height : 100px;
 	float:left;
 }
 .col-1-5 {
 	background-image: url('logo.jpg');
 	background-position: center; 
 	background-repeat: no-repeat;
-	background-size:70%;
+	background-size:50%;
 	width:20%;
 	height:100px;
 	float:left;
@@ -61,10 +65,11 @@
 	float:left;
 	width:300px;
 	height:300px;
+	overflow:hidden;
 }
 .col-1-2 .module .contents img {
-	width:295px;
-	height:295px;
+	width:300px;
+	height:300px;
 }
 .testsection {
 	background-color:blue;
